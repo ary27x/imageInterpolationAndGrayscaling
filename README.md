@@ -1,4 +1,4 @@
-# imageProcessingAndInterpolation
+# imageInterpolationAndGrayscaling
 
 
 1) Black And White Converter :
@@ -8,7 +8,7 @@
 ![image](https://github.com/ary27x/imageProcessingAndInterpolation/assets/63790777/63aa4c8e-55e5-41d2-898c-d3d70cf513b2)
 
 
-3) Linear Interpolation:
+2) Linear Interpolation:
 
     Scales m X n image into a 2m X 2n image using linear interpolation
 
