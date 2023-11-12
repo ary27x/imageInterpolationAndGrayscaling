@@ -2,14 +2,9 @@ from PIL import Image
 import numpy
 import time
 
-
-
-
-def wrapper(data , check):	
-	
+def wrapper(data , check):		
 	counter = 0
 	temp = []
-	
 	buffer = [] # this will store the entire result
 	for item in data:
 		temp.append(item)
@@ -20,7 +15,6 @@ def wrapper(data , check):
 			counter = 0
 	return buffer
 
-
 def tranpose(buffer):
 	result = []
 	for i in range(len(buffer[0])):
@@ -29,7 +23,6 @@ def tranpose(buffer):
 			temp.append(buffer[j][i])
 		result.append(temp)
 	return result
-
 
 def inverter(p): 
 	buffer = []
@@ -40,10 +33,7 @@ def inverter(p):
 		buffer.append(temp)		
 	return (buffer)
 
-
-
 def linearInterpolation(p):
-
 	buffer = []
 	for i in range(len(p)):
 		newData = []
@@ -89,6 +79,26 @@ def linearInterpolation(p):
 	
 	return tranpose(newBuffer)
 
+def blend(left , right , pivot): # this is the base blend function
+	buffer = []
+	for i in range (len(left)):
+		temp = []
+		for j in range(len(left[i])):
+			first =  blendValue(left[i][j][0] , right[i][j][0] , pivot)
+			second = blendValue(left[i][j][1] , right[i][j][1] , pivot)
+			third =  blendValue(left[i][j][2] , right[i][j][2] , pivot)
+
+			temp.append((first , second ,third))
+		buffer.append(temp)	
+	return (buffer)
+
+			
+def blendValue(left , right , pivot): # this is the helper function for the blend
+	leftContribution = left * (1 - pivot)
+	rightContribution = right * pivot
+	newPixelData = leftContribution + rightContribution
+	return newPixelData
+
 
 def blackAndWhite(p): # this would be our worker function 
 	buffer = []
@@ -121,6 +131,20 @@ result = linearInterpolation(data) # this scales a m X n image into an 2m X 2n i
 
 #result = blackAndWhite(data) # this would turn the image into black and white
 #result = inverter(data) # this would invert the image 
+
+
+
+#Image Blender
+#image1 = "nature400x400.jpg"
+#image2 = "person400x400.jpg"
+	
+#i1 = Image.open(image1) # supply the file name with path here
+#i2 = Image.open(image2) # supply the file name with path here
+
+#data1 = wrapper(list(i1.getdata()), i1.size[0])
+#data2 = wrapper(list(i2.getdata()), i2.size[0])
+#pivot = float(input("Enter the pivot  value : "))
+#result = blend(data1 , data2 , pivot)
 
 # ~
 resultData = numpy.array(result , dtype = numpy.uint8)
