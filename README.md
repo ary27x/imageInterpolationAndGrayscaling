@@ -1,4 +1,4 @@
-# imageInterpolationAndGrayscaling
+# imageInterpolationAndProcessing
 
 
 
