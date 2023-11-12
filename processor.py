@@ -29,6 +29,19 @@ def tranpose(buffer):
 			temp.append(buffer[j][i])
 		result.append(temp)
 	return result
+
+
+def inverter(p): 
+	buffer = []
+	for row in p:
+		temp = []
+		for triplet in row:
+			temp.append((abs(triplet[0]-255), abs(triplet[1] - 255) , abs(triplet[2] - 255)))
+		buffer.append(temp)		
+	return (buffer)
+
+
+
 def linearInterpolation(p):
 
 	buffer = []
@@ -100,12 +113,16 @@ price = Image.open("200x200price.jpg") # supply the file name with path here
 data = wrapper(list(price.getdata()), 200)
 startTime = time.time()
 
+
+
+# ~ FUNCTIONS 
 result = linearInterpolation(data) # this scales a m X n image into an 2m X 2n image using linear interpolation
 # can also chain the function as such linearInterpolation(linearInterpolation(data)) to call it multiple times
 
 #result = blackAndWhite(data) # this would turn the image into black and white
+#result = inverter(data) # this would invert the image 
 
-
+# ~
 resultData = numpy.array(result , dtype = numpy.uint8)
 newData = Image.fromarray(resultData)
 newData.show()
